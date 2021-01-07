@@ -6,7 +6,6 @@ const broadcast = new BroadcastChannel('pingback-channel');
 var running = false;
 
 function pingback() {
-  
   broadcast.postMessage({
     isRunning: running,
   });
@@ -27,7 +26,7 @@ self.addEventListener('message', event => {
   switch(event.data) {
     case "start": start(); break;
     case "stop": stop(); break;
-    case "query": console.log("query"); pingback(); break;
+    case "query": pingback(); break;
     default: console.log("Unexpected event", event);
   }
 });

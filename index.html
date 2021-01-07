@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Push Demo</title>
+    <title>RestMinder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
         if (!('Notification' in window)) {
@@ -13,23 +13,30 @@
             alert("ServiceWorker API not supported, this app won't work on your browser");
         }
     </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
     <style>
-        .c-toggle {
+        body {
+           font-family: 'Comfortaa', sans-serif;
+            line-height: 1.6;
+        }
+        #maindiv {
+            width:900px;
+        }
+        .toggle {
                 display: inline-block;
                 width: 96px;
                 height: 48px;
                 position: relative;
                 border-radius: 48px;
-                -webkit-appearance: none;
-                -moz-appearance: none;
                 appearance: none;
+                margin: 0 18px 0 0;
                 outline: 0;
                 border: none;
                 cursor: pointer;
                 background-color: #757575;
                 transition: background-color .3s ease
             }
-            .c-toggle:before {
+            .toggle:before {
                 content: "";
                 display: block;
                 width: 40px;
@@ -43,30 +50,80 @@
                 box-shadow: 0 1px 2px rgba(0,0,0,.2);
                 transition: all .3s ease
             }
-            .c-toggle:disabled {
-                background-color: coral;
-                cursor: not-allowed;
-                opacity: .7
-            }
-            .c-toggle:checked {
+            .toggle:checked {
                 background-color: #2ed573
             }
-            .c-toggle:checked:before {
+            .toggle:checked:before {
                 left: 52px
+            }
+            .collapsible {
+                overflow-y: hidden;
+                transition: max-height 0.2s ease-in;
+            }
+            .header {
+                padding: 10px;
+                font-size: 28px;
+                display: flex;
+                justify-content: left;
+                align-items: center;
+                background-color: #f1f1f1;
+                cursor: pointer;
+                user-select: none;
+            }
+            .unclickable {
+                pointer-events: none;
+            }
+            .content {
+                padding: 12px;
+                background-color: #f8f8f8;
             }
     </style>
 </head>
 
 <body>
-    <input id="masterswitch" class="c-toggle js-example-toggle" type="checkbox" onchange="togglerino()">
-    <div id="debuggerino" style="display:none;">
-        <p>Notifications permission: <b id="status">unavailable</b>.</p>
-        <p>ServiceWorker status: <b id="swstatus">unknown</b>.</p>
+
+    <input id="masterswitch" class="toggle" type="checkbox">
+    <div id="maindiv" style="display:none">
+
+        <p>Chose which reminders do you want to get:</p>
+            
+        <div class="header">
+            <input id="hydration" class="toggle unclickable" type="checkbox"> HYDRATE
+        </div>
+        <div class="collapsible">
+            <div class="content">
+                I'll tell you what I want, what I really, really want.<br>
+                I wanna hy! I wanna hy! I wanna hy! I wanna hy!<br>
+                I wanna really, really, really wanna HYDRATE<br>
+            </div>
+        </div>
+
+        
+        <div class="header">
+            <input id="breaks" class="toggle unclickable" type="checkbox"> TAKE BREAKS
+        </div>
+        <div class="collapsible">
+            <div class="content">
+                It's dangerous to go alone, take breaks!<br>
+            </div>
+        </div>
+    
+
+        <div class="header">
+            <input id="breathe" class="toggle unclickable" type="checkbox"> PAUSE TO BREATHE
+        </div>
+        <div class="collapsible">
+            <div class="content">
+                That air ain't gonna breathe itself<br>
+                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+            </div>
+        </div>
+
     </div>
-    <div id="maindiv" style="display:none;">
-        <p>Hello!</p>
-    </div>
-    <script src="index.js"></script>
+
 </body>
 
+
+
+<script src="index.js"></script>
 </html>
